@@ -1,1 +1,1 @@
-# sotuv_sayti
+# sotuv_sayt

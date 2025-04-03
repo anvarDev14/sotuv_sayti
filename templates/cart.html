@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Savat {% endblock title %}
+
+{% block content %}
+    <div class="container py-4">
+        <h2 class="mb-4">Sizning savatingiz</h2>
+
+        {% if user_cart %}
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Rasm</th>
+                            <th>Mahsulot nomi</th>
+                            <th>Narxi</th>
+                            <th>Miqdor</th>
+                            <th>Jami</th>
+                            <th>Amallar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in user_cart %}
+                            <tr>
+                                <td>
+                                    {% if item.product.product_image %}
+                                        <img src="{{ item.product.product_image.url }}" alt="{{ item.product.name }}" style="width: 50px; height: auto;">
+                                    {% else %}
+                                        <span>Rasm yo‘q</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ item.product.name }}</td>
+                                <td>{{ item.product.selling_price|default:item.product.original_price|stringformat:"d" }} so‘m</td>
+                                <td>{{ item.product_qty }} dona</td>
+                                <td>{{ item.total_item_price|stringformat:"d" }} so‘m</td>
+                                <td>
+                                    <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger btn-sm">O‘chirish</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <h4>Umumiy narx: <span class="text-success">{{ total_price|stringformat:"d" }} so‘m</span></h4>
+                <div>
+                    <a href="{% url 'home' %}" class="btn btn-outline-secondary me-2">Xaridni davom ettirish</a>
+                    <a href="#" class="btn btn-primary">Buyurtma berish</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center">
+                <p>Savatingiz hozircha bo‘sh!</p>
+                <a href="{% url 'home' %}" class="btn btn-primary">Mahsulotlarni ko‘rish</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}
