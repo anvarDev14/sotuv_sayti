@@ -1,0 +1,27 @@
+# Python bilan bog‘liq fayllar
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+
+# Ma’lumotlar bazasi va log fayllari
+*.sqlite3
+*.log
+
+# Statik va media fayllar (ularni Docker ichida qayta yig‘amiz)
+staticfiles/
+media/
+
+# Git va boshqa keraksiz fayllar
+.git
+.gitignore
+README.md
+
+# Docker bilan bog‘liq fayllar (agar mavjud bo‘lsa)
+docker-compose.yml
+Dockerfile
+nginx/
