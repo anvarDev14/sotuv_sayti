@@ -1,36 +1,34 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
-{% block title %} Saytga Kirish {% endblock title %}
+{% block title %}Mahsulotni o'chirish{% endblock title %}
 
+{% block content %}
+<div class="py-3 bg-primary">
+  <div class="container">
+    <a class="text-white" href="{% url 'home' %}">Bosh sahifa /</a>
+    <a class="text-white" href="{% url 'deleteproduct' %}">Mahsulotni o'chirish /</a>
+  </div>
+</div>
 
+<div class="container mt-5 py-5">
+  <div class="row justify-content-center animate__animated animate__fadeInUp">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-lg rounded-4">
+        <div class="card-body">
+          <h3 class="text-center mb-4">Mahsulotni o'chirish</h3>
 
-    {% block content %}
-            <div class="py-3 bg-primary">
-            <div class="container">
-                <a class="text-white" href="{% url 'home' %}">Bosh sahifa /</a>
-                <a class="text-white" href="{% url 'register' %}">Ro'yxatdan O'tish /</a>
-                <a class="text-white" href="{% url 'login' %}">Saytga Kirish /</a>
+          <form method="POST">
+            {% csrf_token %}
+            <h4 class="text-center">{{ product.name }}</h4>
+            <p class="text-center">Siz rostdanham mahsulotni o'chirishni xohlaysizmi?</p>
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <button type="submit" class="btn btn-danger w-100">O'chirish</button>
             </div>
+          </form>
         </div>
-        <div class="container mt-5">
+      </div>
+    </div>
+  </div>
+</div>
 
-            <div class="row">
-
-                <div class="col-2">
-
-                </div>
-                <div class="col-6">
-                    <form method="POST">
-                        {% csrf_token %}
-                        <h4>{{ product.name }}</h4>
-                        <p>Siz rostdanham mahsulotni O'chirasizmi ?</p>
-                        <button type="submit" class="btn btn-danger">O'chirish</button>
-                    </form>
-
-                </div>
-                <div class="col-4"></div>
-
-
-            </div>
-        </div>
-    {% endblock content %}
+{% endblock content %}

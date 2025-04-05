@@ -1,34 +1,33 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
-{% block title %} Mahsulot qo'shish {% endblock title %}
+{% block title %}Mahsulotni tahrirlash{% endblock title %}
 
+{% block content %}
+<div class="py-3 bg-primary">
+  <div class="container">
+    <a class="text-white" href="{% url 'home' %}">Bosh sahifa /</a>
+    <a class="text-white" href="{% url 'editproduct' %}">Mahsulotni tahrirlash /</a>
+  </div>
+</div>
 
+<div class="container mt-5 py-5">
+  <div class="row justify-content-center animate__animated animate__fadeInUp">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-lg rounded-4">
+        <div class="card-body">
+          <h3 class="text-center mb-4">Mahsulotni tahrirlash</h3>
 
-    {% block content %}
-            <div class="py-3 bg-primary">
-            <div class="container">
-                <a class="text-white" href="{% url 'home' %}">Bosh sahifa /</a>
-                <a class="text-white" href="{% url 'addproduct' %}">Mahsulot qo'shish /</a>
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <button type="submit" class="btn btn-success w-100">O'zgartirish</button>
             </div>
+          </form>
         </div>
-        <div class="container mt-3">
+      </div>
+    </div>
+  </div>
+</div>
 
-            <div class="row">
-
-                <div class="col-2">
-
-                </div>
-                <div class="col-6">
-                     <h3>Mahsulotni Tahrirlash</h3>
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ form|crispy }}
-                        <button type="submit" class="btn btn-success">O'zgartirish</button>
-                    </form>
-                </div>
-                <div class="col-4"></div>
-
-
-            </div>
-        </div>
-    {% endblock content %}
+{% endblock content %}

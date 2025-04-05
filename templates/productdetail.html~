@@ -1,36 +1,29 @@
 {% extends 'base.html' %}
 {% load static %}
-
-{% block title %} {{ product.name }} {% endblock %}
+{% block title %} {{ product.name }} {% endblock title %}
 
 {% block content %}
-    <!-- Breadcrumb Section -->
-    <div class="py-3 bg-light">
+    <div class="py-3 bg-primary">
         <div class="container">
-            <a class="text-dark" href="{% url 'home' %}">Bosh sahifa /</a>
-            <a class="text-dark" href="{% url 'cat' %}">Kategoriyalar /</a>
-            <a class="text-dark" href="{% url 'catdet' product.category.slug %}">{{ product.category.name }} /</a>
-            <a class="text-dark" href="{% url 'productdet' product.category.slug product.slug %}">{{ product.name }}</a>
+            <a class="text-white" href="{% url 'home' %}">Bosh sahifa /</a>
+            <a class="text-white" href="{% url 'cat' %}">Kategoriyalar /</a>
+            <a class="text-white" href="{% url 'catdet' product.category.slug %}">{{ product.category.name }}/</a>
+            <a class="text-white" href="{% url 'productdet' product.category.slug product.slug %}">{{ product.name }}</a>
         </div>
     </div>
-
-    <!-- Product Details Section -->
     <div class="container py-3">
         <div class="row">
             <div class="col-md-12">
-                <div class="card shadow-sm">
+                <div class="card shadow">
                     <div class="card-body">
                         <div class="row">
-                            <!-- Product Image Section -->
                             <div class="col-md-4">
                                 {% if product.product_image %}
-                                    <img src="{{ product.product_image.url }}" class="img-fluid" alt="{{ product.name }}">
+                                    <img src="{{ product.product_image.url }}" class="w-100" alt="{{ product.name }}">
                                 {% else %}
                                     <p>No image available</p>
                                 {% endif %}
                             </div>
-
-                            <!-- Product Information Section -->
                             <div class="col-md-8">
                                 <div class="row">
                                     <div class="col-10">
@@ -44,15 +37,13 @@
                                 </div>
                                 <p class="text-muted">{{ product.small_description }}</p>
                                 <p class="mb-2 btn btn-info" id="narx">Narxi: <span id="productPrice">{{ product.selling_price|stringformat:'d' }}</span> so'm</p>
-
                                 {% if product.original_price %}
                                     <p><s class="text-danger fw-bold">{{ product.original_price|stringformat:'d' }} so'm</s></p>
                                 {% endif %}
-
                                 <p class="mb-3 text-secondary text-opacity-75">Sana: {{ product.created_at|date:"Y-m-d H:i:s" }}</p>
                                 <p class="text-secondary">Mahsulot soni: {{ product.quantity }} dona</p>
 
-                                <!-- Add to Cart Form -->
+                                <!-- Savatchaga qo'shish formasi -->
                                 <form method="POST" action="{% url 'add_to_cart' product_id=product.id %}">
                                     {% csrf_token %}
                                     <label for="quantity">Miqdor:</label>
@@ -60,17 +51,15 @@
                                     <button type="submit" class="btn btn-primary">Savatchaga qo'shish</button>
                                 </form>
 
-                                <!-- Admin Options -->
                                 {% if request.user.is_superuser or request.user.is_admin %}
                                     <a class="btn btn-info" href="{% url 'editproduct' product.slug %}">Tahrirlash</a>
                                     <a class="btn btn-danger" href="{% url 'delete' product.slug %}">O'chirish</a>
                                 {% endif %}
 
                                 <hr>
-                                <!-- Product Description Section -->
                                 <h2>Mahsulot haqida</h2>
                                 <p>{{ product.description }}</p>
-
+                                <br>
                                 <hr>
                                 <p>{{ product.meta_description }}</p>
                             </div>
@@ -80,4 +69,4 @@
             </div>
         </div>
     </div>
-{% endblock %}
+{% endblock content %}

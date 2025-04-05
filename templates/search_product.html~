@@ -1,21 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Qidiruv natijalari {% endblock %}
+{% block title %}Search Results{% endblock title %}
 
 {% block content %}
     <div class="container mt-4">
-        <h3>Qidiruv natijalari: {{ products|length }} ta</h3>
+        <h3>Qidiruv natijalari {{ products|length }} ta </h3>
         {% if products %}
             <div class="row">
                 {% for product in products %}
+
                     <div class="col-md-4 mb-4">
                         <div class="card">
-                            {% if product.product_image %}
-                                <img src="{{ product.product_image.url }}" class="card-img-top" alt="{{ product.name }}">
-                            {% else %}
-                                <img src="{% static 'default_image.jpg' %}" class="card-img-top" alt="No image available">
-                            {% endif %}
+                            <img src="{{ product.product_image.url }}" class="card-img-top" alt="{{ product.name }}">
                             <div class="card-body">
                                 <h5 class="card-title"><b>{{ product.name }}</b></h5>
                                 <p class="card-text">{{ product.small_description }}</p>
@@ -30,4 +27,4 @@
             <p> Mahsulot topilmadi </p>
         {% endif %}
     </div>
-{% endblock %}
+{% endblock content %}

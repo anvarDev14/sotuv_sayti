@@ -1,37 +1,37 @@
 {% extends 'base.html' %}
-{% block title %} Kategoriyalar {% endblock title %}
+{% block title %}Kategoriyalar{% endblock title %}
 
+{% block content %}
+<div class="py-3 bg-primary">
+  <div class="container">
+    <a class="text-white" href="{% url 'home' %}">Bosh sahifa /</a>
+    <a class="text-white" href="{% url 'cat' %}">Kategoriyalar /</a>
+  </div>
+</div>
 
+<div class="container py-5 animate__animated animate__fadeInUp">
+  <div class="row mb-4">
+    <div class="col text-center">
+      <h2 class="fw-bold text-primary">📚 Kategoriyalar</h2>
+      <hr class="w-25 mx-auto">
+    </div>
+  </div>
 
-    {% block content %}
-            <div class="py-3 bg-primary">
-            <div class="container">
-                <a class="text-white" href="{% url 'home' %}">Bosh sahifa /</a>
-                <a class="text-white" href="{% url 'cat' %}">Kategoriyalar /</a>
-            </div>
+  <div class="row g-4" data-aos="fade-up" data-aos-delay="100">
+    {% for category in categories %}
+    <div class="col-md-3">
+      <a href="{% url 'catdet' category.slug %}" class="text-decoration-none text-dark">
+        <div class="card shadow-sm h-100 border-0 hover-shadow rounded-4">
+          <div class="category-image">
+            <img src="{{ category.image.url }}" alt="{{ category.name }}" class="card-img-top rounded-top-4" style="height:200px; object-fit:cover;">
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ category.name }}</h5>
+          </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <hr>
-                    <div class="row">
-                        {% for category in categories %}
-                        <div class="col-md-3" >
-                            <div class="card">
-                                <a href="{% url 'catdet' category.slug %}">
-                                    <div class="card-body">
-                                    <div class="category-image" >
-                                        <img src="{{ category.image.url }}" alt="rasm " class="w-100" style="height:200px;">
-                                    </div>
-                                    <h4 class="text-center">{{ category.name }}</h4>
-                                </div>
-                                </a>
-
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endblock content %}
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
